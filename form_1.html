@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en" style="overflow-x: hidden" >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.js"></script>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.12.5/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
+    <script src="js/con.js"></script>
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+    <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-svg-round-progressbar/0.4.8/roundProgress.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular-animate.js"></script>
+    <script>
+        angular.module('someModule', ['angular-svg-round-progressbar']);
+        (function () {
+                       var app = angular.module('myapp', ['ngAnimate']);
+        })();
+
+    </script>
+    <script>
+
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+
+         ipapi();
+
+    </script>
+<style>
+    @media only screen and (max-width: 500px) {
+        /* For mobile phones: */
+        #similarb{
+            display: none;
+        }
+
+        #depro{
+            width:100%
+        }
+        #depr{
+            width:100%
+        }
+        .buttonall{
+            width: 18%;
+        }
+
+        .pading{
+            padding: 0px
+        }
+
+        #sicom{
+            display: none;
+        }
+    }
+   /* @media only screen and (max-width: 980px) {
+        #re_table{
+            width: 960px;
+        }
+    }*/
+
+    @media only screen and (min-width: 501px) {
+        /* For mobile phones: */
+        #relatedb{
+            display: none;
+        }
+        #siphone{
+            display: none;
+        }
+    }
+
+
+
+ /*   #pro_detail.ng-show {
+        transition: 3s linear all;
+        opacity: 0;
+    }
+    #res.ng-show {
+        transition: 3s linear all;
+        opacity: 0;
+    }
+    #res.ng-hide {
+        transition: 3s linear all;
+        opacity: 1;
+    }*/
+
+    @keyframes myChange {
+        from {
+            transform: translate(0,0);
+        } to {
+              transform: translateX(800px);
+          }
+    }
+    @keyframes myChange2 {
+        from {
+            height: 0px;
+
+            opacity: 0;
+        } to {
+              height: 0px;
+
+        opacity: 0;
+          }
+    }
+
+
+    #res.ng-hide-remove {
+        animation: ease-in 1s myChange2;
+    }
+    #pro_detail.ng-hide-remove {
+        animation: ease-in  1s myChange;
+    }
+    @keyframes myChange1 {
+        from {
+            transform: translate(0,0);
+        } to {
+        transform: translateX(800px);
+          }
+    }
+
+    #res.ng-hide-add {
+        animation: ease-in 1s myChange1;
+    }
+    #pro_detail.ng-hide-add {
+        animation: ease-in  1s myChange1;
+    }
+</style>
+</head>
+<body style="font-family: 'Times New Roman';  "    ng-init="bool=true; bool1=false">
+
+<div class="container bg-dark text-center">
+
+    <h2 class="text-center text-white "> Product Search</h2>
+        <form style="/*border: solid;*/ width: 70%; margin: auto"  id = "form1" >
+        <div class="form-group custom-control-inline row " style="/*border: solid;*/ width: 100%">
+            <label for="keyword" class="text-white col-md-4 text-left pading" style="/*border: solid*/">Keyword<span style="color: red">*</span></label>
+
+            <div  style="padding-left: 0px" class="col-md-7 text-left">
+            <input name= "keyword" type="text" class="form-control " id="keyword" value ="" placeholder="Enter Product Name (eg. iPhone 8)" >
+            <input id="keyerror" type="text" class="bg-dark" value="Please enter a keyword." style="color: red; font-size: 15px; border: none; display: none">
+            </div>
+        </div>
+
+
+        <div class="form-group custom-control-inline row" style="/*border: solid;*/ width: 100%">
+            <label for="category" class="text-white col-md-4 text-left pading" style="/*border: solid*/">Category</label>
+            <select class="form-control col-md-3" id="category" name = "category">
+                <option id ="all" selected value="all" >  All Categories</option>
+                <option value="550">  Art </option>
+                <option value="2984">  Baby </option>
+                <option value="267">  Books </option>
+                <option value="11450">  Clothing,Shoes & Accessories </option>
+                <option value="58058">  Computers/Tablets & Networking </option>
+                <option value="26395">  Health & Beauty </option>
+                <option value="11233">  Music </option>
+                <option value="1249">  Video Games & Consoles </option>
+            </select>
+        </div>
+        <div class="form-group  row" style="/*border: solid;*/width: 100%">
+            <div class="col-md-4 text-left text-white pading"> Condition </div>
+        <div class="form-check form-check-inline">
+            <label class="form-check-label text-white">
+                <input type="checkbox" class="form-check-input" value="New" name = "condition"> New
+            </label>
+        </div>
+        <div class="form-check form-check-inline text-white">
+            <label class="form-check-label">
+                <input type="checkbox" class="form-check-input" value="Used"  name = "condition">Used
+            </label>
+        </div>
+        <div class="form-check form-check-inline text-white">
+            <label class="form-check-label">
+                <input type="checkbox" class="form-check-input" value="Unspecified" name = "condition">Unspecified
+            </label>
+        </div>
+        </div>
+
+        <div class="form-group  row" style="/*border: solid;*/width: 100%">
+            <div class="col-md-4 text-left text-white pading"> Shipping Options </div>
+            <div class="form-check form-check-inline">
+                <label class="form-check-label text-white">
+                    <input type="checkbox" class="form-check-input" value="LocalPickupOnly" name = "shipping"> Local Pickup
+                </label>
+            </div>
+            <div class="form-check form-check-inline text-white">
+                <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input" value="FreeShippingOnly" name = "shipping">Free Shipping
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group custom-control-inline row" style="/*border: solid;*/ width: 100%">
+                <label for="distance" class="text-white col-md-4 text-left pading" style="/*border: solid*/">Distance(Miles)</label>
+                <input name= "distance" type="text" class="form-control col-md-3" id="distance" placeholder="10" value="" >
+        </div>
+
+        <div class=" form-group row" style="/*border: solid;*/width: 100%">
+            <div class="col-md-4 text-left text-white pading"> From <span style="color: red">*</span></div>
+            <div  style="padding-left: 0px" class="col-md-8 text-left">
+            <div class=" text-white text-left">
+                <label >
+                    <input checked type="radio"  value="current" name = "from"> Current Location
+                </label>
+            </div>
+                <div class=" text-white">
+                    <label >
+                        <input type="radio"  value="other" name = "from"> Other. Please specify zip code:
+                    </label>
+                </div>
+
+                <input name="zipcode" type="text" id="zipcode" style="margin-left: 0px; width: 100%" value="" >
+                <input id="ziperror" type="text" class="bg-dark" value="please enter a zip code. " style="color: red; font-size: 15px; border: none; display: none">
+
+            </div >
+
+        </div>
+        <div class="text-left form-group">
+            <button disabled onclick="postData()" id ="search" style="font-size: 18px;" type="button"  class="btn  text-dark bg-light" form = "form1" value="submit"><i class="material-icons align-bottom" >
+                search
+            </i> Search </button>
+
+            <button onclick="myclear()" id="clear" style="font-size: 18px; margin-left: 40px" type="button"  class="btn  text-dark bg-light" form = "form1" value="clear">
+                <i class="material-icons " style="font-size: 15px">
+                    clear_all
+                </i> Clear</button>
+        </div>
+        <br>
+    </form>
+</div>
+
+    <div class="container" >
+        <br>
+        <div class="form-group text-center" >
+        <button class="btn text-white bg-dark" type="button" Value="Results" id="results" name="results" onclick="refrshtable(1)"> Results </button>
+            <button class="btn text-black-50 bg-light" type="button" Value="Results" id="wish" name="wish" onclick="wishcar()"> Wish list </button>
+        </div>
+
+
+        <div class="progress progress-striped active" id="progressbar"  style="visibility: hidden">
+            <div class="progress-bar progress-bar-success" role="progressbar"
+                 aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="plan"
+                 style="width: 0%;">
+
+            </div>
+        </div>
+
+
+
+
+        </div>
+        <div class="container" ng-show ="bool" id="res">
+            <div class="form-group text-right" style="display: none" id="details" >
+                <button disabled autocomplete="off" id="detailsbutton" class="btn text-dark" onclick="refreshdetail()" ng-click="bool=false bool1=false"> Detail<i class="material-icons align-bottom">
+                    keyboard_arrow_right
+                </i>
+                </button>
+            </div>
+        <div id="re_table"  class="container table-dark"  style="overflow-x: scroll" >
+
+        </div>
+        <div id="wishshopcar" class="container table-dark" style="overflow-x: scroll">
+
+        </div>
+        </div>
+        <div id="pro_detail" class="container" style="display: none; margin: auto; " ng-hide="bool1" >
+            <div id="protitle" class=" row" >
+                <b id="titlepro" class="text-center" style="font-size: 110%; margin: auto;" >
+                </b>
+            </div>
+            <div class="row">
+                <button onclick="refrshtable(this.value)" value="1"  id="list_value" class="btn text-dark float-left  col-3 col-sm-1" ng-click="bool=true"> <i class="material-icons align-bottom">
+                    keyboard_arrow_left
+                </i> List
+                </button>
+
+            <div class=" col-9 col-sm-11">
+                <button onclick="shop_change(this.childNodes[1])" class="btn text-dark float-right"> <i id="shop_detail" class="material-icons  align-bottom">add_shopping_cart</i>
+                </button>
+                <a id="facebook" href="#" target="_blank"><img src="http://csci571.com/hw/hw8/Images/facebook.png" style="width: 45px;height: 38px" class="float-right "></a>
+            </div>
+            </div>
+
+
+            <div class="text-right"  style="border-bottom: gray solid; " >
+
+
+                <button  class="btn   buttonall " id="productbutton" style="background-color: black; color: white; font-size: 100%"> Product
+                </button>
+                <button  class="btn  buttonall  " id="photosbutton" style="background-color: white; color: black;font-size: 100%"> Photos
+                </button>
+                <button  class="btn buttonall  " id="shippingbutton" style="background-color: white; color: black;font-size: 100%"> Shipping
+                </button>
+                <button  class="btn buttonall  " id="sellerbutton" style="background-color:white; color: black;font-size: 100%"> Seller
+                </button>
+                <button  class="btn   buttonall similarbutton"  id="similarb" style="background-color: white; color: black;font-size: 100%; " >  Similar Products
+                </button>
+                <button  class="btn   buttonall similarbutton" id="relatedb"  style="background-color: white; color: black;font-size: 100%; " >  Related
+                </button>
+
+
+
+
+
+
+            </div>
+
+
+
+            <div id="detail_table" class="tableall row" >
+             </div>
+
+
+            <div id="photo" class="tableall row" style=" display: none;">
+            </div>
+
+            <div id="ship" style="display: none" class="tableall row">
+             </div>
+
+            <div id="seller" style="display: none" class="tableall row" >
+            </div>
+
+            <div id="similar" style="display: none" class="tableall row">
+
+            </div>
+        </div>
+
+
+
+
+
+</body>
+</html>
